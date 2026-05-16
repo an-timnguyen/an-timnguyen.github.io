@@ -1,1 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pieces Chess Club - Case Study</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      line-height: 1.6;
+      color: #030213;
+      background: #ffffff;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(12px);
+      z-index: 1000;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    nav .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    nav .logo {
+      font-weight: 500;
+      font-size: 1rem;
+    }
+
+    nav .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    nav a {
+      color: #030213;
+      text-decoration: none;
+      font-size: 0.875rem;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: rgba(3, 2, 19, 0.6);
+    }
+
+    /* Main Content */
+    main {
+      padding-top: 8rem;
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+      padding-bottom: 5rem;
+    }
+
+    section {
+      max-width: 1200px;
+      margin: 0 auto 5rem;
+    }
+
+    /* Hero Section */
+    .hero h1 {
+      font-size: 2rem;
+      font-weight: 500;
+      line-height: 1.5;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero .intro {
+      max-width: 48rem;
+      font-size: 1.125rem;
+      color: rgba(3, 2, 19, 0.8);
+      line-height: 1.6;
+      margin-bottom: 3rem;
+    }
+
+    /* Image Grid */
+    .image-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .image-wrapper {
+      position: relative;
+      aspect-ratio: 16/9;
+      border-radius: 0.75rem;
+      overflow: hidden;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+
+    .image-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .image-credits {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      font-size: 0.875rem;
+      color: #717182;
+    }
+
+    /* Card Sections */
+    .card-section {
+      padding: 3rem;
+      border-radius: 1rem;
+    }
+
+    .card-section.beige {
+      background: #f5f5f0;
+    }
+
+    .card-section.white {
+      background: #ffffff;
+    }
+
+    .card-section.light-gray {
+      background: rgba(233, 235, 239, 0.3);
+    }
+
+    .card-section h2 {
+      font-size: 1.875rem;
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+    }
+
+    .card-section h3 {
+      font-size: 1.5rem;
+      font-weight: 500;
+      margin-bottom: 0.75rem;
+    }
+
+    .card-section p {
+      color: rgba(3, 2, 19, 0.7);
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+
+    .subsection {
+      margin-bottom: 2rem;
+    }
+
+    /* Role Images */
+    .promo-card {
+      position: relative;
+      aspect-ratio: 16/9;
+      border-radius: 0.75rem;
+      overflow: hidden;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      background: #f0f0f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .promo-content {
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .chess-icon {
+      width: 8rem;
+      height: 8rem;
+      margin: 0 auto 1rem;
+      background: #030213;
+      border-radius: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-size: 2.5rem;
+    }
+
+    .promo-content h4 {
+      font-size: 1.5rem;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+
+    .promo-content p {
+      font-size: 0.875rem;
+    }
+
+    /* Impact List */
+    .impact-list {
+      list-style: none;
+    }
+
+    .impact-list li {
+      display: flex;
+      align-items: start;
+      color: rgba(3, 2, 19, 0.7);
+      line-height: 1.6;
+      margin-bottom: 0.75rem;
+    }
+
+    .impact-list li span:first-child {
+      margin-right: 0.75rem;
+    }
+
+    /* Reflections */
+    .reflection-images {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .reflection-card {
+      aspect-ratio: 3/4;
+      border-radius: 0.75rem;
+      overflow: hidden;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+
+    .reflection-card-inner {
+      width: 100%;
+      height: 100%;
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .reflection-card-inner.white {
+      background: #ffffff;
+    }
+
+    .reflection-card-inner.dark {
+      background: #030213;
+      color: #ffffff;
+    }
+
+    .reflection-card-inner div {
+      font-size: 0.75rem;
+      text-align: center;
+      color: #717182;
+    }
+
+    .reflection-card-inner.dark div {
+      color: #ffffff;
+    }
+
+    .reflection-credits {
+      text-align: center;
+      font-size: 0.875rem;
+      color: #717182;
+      margin-bottom: 3rem;
+    }
+
+    /* CTA Button */
+    .cta-container {
+      display: flex;
+      justify-content: center;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      background: #030213;
+      color: #ffffff;
+      font-weight: 500;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    .btn-primary:hover {
+      background: rgba(3, 2, 19, 0.9);
+      transform: scale(1.05);
+    }
+
+    /* Footer */
+    footer {
+      padding: 2rem 1.5rem;
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
+      text-align: center;
+      color: #717182;
+      font-size: 0.875rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      nav .nav-links {
+        gap: 1rem;
+        font-size: 0.75rem;
+      }
+
+      main {
+        padding-top: 6rem;
+        padding-bottom: 3rem;
+      }
+
+      .hero h1 {
+        font-size: 1.5rem;
+      }
+
+      .hero .intro {
+        font-size: 1rem;
+      }
+
+      .image-grid,
+      .image-credits {
+        grid-template-columns: 1fr;
+      }
+
+      .card-section {
+        padding: 2rem;
+      }
+
+      .reflection-images {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav>
+    <div class="container">
+      <span class="logo">Pieces Chess Club</span>
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#work">Selected works</a></li>
+        <li><a href="#about">About</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main>
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+      <h1>Pieces Chess Club</h1>
+      <p class="intro">
+        Pieces Chess Club is a volunteer-founded social chess club and fundraiser that brings together
+        chess, food, and live DJ sets to create a unique, joyful community space that also raises money
+        for various organizations.
+      </p>
+
+      <!-- Image Grid -->
+      <div class="image-grid">
+        <div class="image-wrapper">
+          <img src="https://images.unsplash.com/photo-1529699211952-734e80c4d42b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080" alt="Chess pieces on board">
+        </div>
+        <div class="image-wrapper">
+          <img src="https://images.unsplash.com/photo-1765518980897-9b0360368a93?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080" alt="People playing board games outdoors">
+        </div>
+      </div>
+      <div class="image-credits">
+        <p>Photo by Randy Fath on Unsplash</p>
+        <p>Photo by zai Dan on Unsplash</p>
+      </div>
+    </section>
+
+    <!-- The Challenge Section -->
+    <section id="work" class="card-section beige">
+      <h2>The Challenge</h2>
+      <p>
+        Chess has participated somehow, the Pieces of chess club was sponsored by a curious young adult — a competitive young man when
+        bouncing his movements started by connecting with a wide group of Pieces supporters that help spread the word.
+      </p>
+      <p>
+        At one time many capitals were anything. Club events were formal, and finding the chess space did a service to youth — a platform
+        with large spaces and community corners. The pieces and the work began to fit into place with a unique space and a unique mission.
+      </p>
+
+      <!-- Challenge Images -->
+      <div class="image-grid" style="margin-top: 2rem;">
+        <div class="image-wrapper">
+          <img src="https://images.unsplash.com/photo-1762277755109-6bfbaa23e0ab?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080" alt="Giant chess set outdoors">
+        </div>
+        <div class="image-wrapper">
+          <img src="https://images.unsplash.com/photo-1560174038-da43ac74f01b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080" alt="Chess pieces close-up">
+        </div>
+      </div>
+      <div class="image-credits">
+        <p>Photo by malwina nogaj on Unsplash</p>
+        <p>Photo by Piotr Makowski on Unsplash</p>
+      </div>
+    </section>
+
+    <!-- My Role and Contributions Section -->
+    <section class="card-section white">
+      <h2>My Role and Contributions</h2>
+      <p>
+        I co-founded Pieces Chess Club with fellow team in 2024, taking on all elements of the brand identity, visual design, and
+        community outreach, from the logo to the art.
+      </p>
+
+      <div class="subsection">
+        <h3>Event design</h3>
+        <p>
+          I held the visual direction of Pieces from scratch from the beginning presents. I ran a bright and bold
+          community-driven vision — a vibe-oriented like most spaces flow.
+        </p>
+      </div>
+
+      <div class="subsection">
+        <h3>Community & growth</h3>
+        <p>
+          Pieces isn't just a party but a community gathering since the light brought the whole present. And our connections
+          that community to their community weren't just answering. I set a signal about the top space that.
+        </p>
+      </div>
+
+      <div class="subsection">
+        <h3>Fundraising</h3>
+        <p>We've put art, chasing serious streams.</p>
+        <p>
+          The first brand outreach were largely a given to Pieces an art presence and an approach like Music, Restoration and SFJAZZ. A charge
+          attendance in action moved that throughout by successfully running projects.
+        </p>
+      </div>
+
+      <!-- Role Images -->
+      <div class="image-grid" style="margin-top: 3rem;">
+        <div class="promo-card">
+          <div class="promo-content">
+            <div class="chess-icon">♟</div>
+            <h4>TIRED OF<br>CHESS.COM?</h4>
+            <p>PLAY IRL AT<br>THE PIECES<br>CHESS CLUB</p>
+          </div>
+        </div>
+        <div class="image-wrapper">
+          <img src="https://images.unsplash.com/photo-1695480542225-bc22cac128d0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080" alt="Chess board setup">
+        </div>
+      </div>
+      <div class="image-credits">
+        <p>Pieces Chess Club promotional design</p>
+        <p>Photo by Daniel Stiel on Unsplash</p>
+      </div>
+    </section>
+
+    <!-- Impact Section -->
+    <section class="card-section light-gray">
+      <h2>Impact</h2>
+      <ul class="impact-list">
+        <li>
+          <span>•</span>
+          <span>Raised over $2000+ for European cities, notable Black-Owned, African-American and LGBTQ organizations</span>
+        </li>
+        <li>
+          <span>•</span>
+          <span>Average attendance of 100 people and over a dozen</span>
+        </li>
+        <li>
+          <span>•</span>
+          <span>Covered in the SF Chronicle and local media</span>
+        </li>
+        <li>
+          <span>•</span>
+          <span>Over 100 RSVPS recorded for raising including Mission Artists and Restoration Budget Council</span>
+        </li>
+        <li>
+          <span>•</span>
+          <span>6+ partners of Making in SF Record, Tempest and Oakland Center Garden</span>
+        </li>
+        <li>
+          <span>•</span>
+          <span>Established a network on Rouge Workshops called in Berlin</span>
+        </li>
+      </ul>
+    </section>
+
+    <!-- Reflections Section -->
+    <section id="about">
+      <h2>Reflections</h2>
+      <p style="color: rgba(3, 2, 19, 0.7); line-height: 1.6; margin-bottom: 1rem;">
+        Pieces let me see design things that used emotional points freely. The spirit of Pieces was so special I was interested
+        that the project was focused on having to do around the pieces that you're now given all of "Is it a good party, Ashton,
+        and is good?"
+      </p>
+      <p style="color: rgba(3, 2, 19, 0.7); line-height: 1.6; margin-bottom: 2rem;">
+        That's both the answer and the question surrounding that a whole brought together: In groups like work/movements and competition
+        we are interested that good design actually has a lot to sit about and the energy. In a bigger light you can guide some within
+        that Pieces taught me that the might in the show before being worth nothing.
+      </p>
+
+      <!-- Reflection Images -->
+      <div class="reflection-images">
+        <div class="reflection-card">
+          <div class="reflection-card-inner white">
+            <div>Document preview</div>
+          </div>
+        </div>
+        <div class="reflection-card">
+          <div class="reflection-card-inner dark">
+            <div>Design document</div>
+          </div>
+        </div>
+        <div class="reflection-card">
+          <div class="reflection-card-inner white">
+            <div>Research notes</div>
+          </div>
+        </div>
+      </div>
+      <div class="reflection-credits">
+        Interview notes and Slide Placement · Initial pitch deck Outcomes · Interview with Impact
+      </div>
+
+      <!-- CTA Button -->
+      <div class="cta-container">
+        <a href="#" class="btn-primary">
+          View case study
+          <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2026 Pieces Chess Club. All rights reserved.</p>
+  </footer>
+</body>
+</html>
