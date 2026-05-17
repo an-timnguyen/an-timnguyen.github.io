@@ -277,30 +277,109 @@
                 margin-bottom: 3rem;
             }
 
-            /* CTA Button */
-            .cta-container {
-                display: flex;
-                justify-content: center;
-            }
+            /* Press & Media Cards */
+            .article-grid {
+                  display: grid;
+                  grid-template-columns: 1fr 1fr 1fr;
+                  gap: 1.5rem;
+                  margin-bottom: 3rem;
+                }
 
-            .btn-primary {
-                display: inline-flex;
-                align-items: center;
-                gap: 0.5rem;
-                padding: 0.75rem 1.5rem;
-                border-radius: 0.5rem;
-                background: #030213;
-                color: #ffffff;
-                font-weight: 500;
-                font-size: 1rem;
-                text-decoration: none;
-                transition: all 0.3s;
-            }
+                .article-card {
+                  text-decoration: none;
+                  display: block;
+                  transition: transform 0.3s;
+                }
 
-            .btn-primary:hover {
-                background: rgba(3, 2, 19, 0.9);
-                transform: scale(1.05);
-            }
+                .article-card:hover {
+                  transform: translateY(-4px);
+                }
+
+                .article-card-inner {
+                  position: relative;
+                  aspect-ratio: 2/2;
+                  border-radius: 0.75rem;
+                  overflow: hidden;
+                  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+                }
+
+                .article-card-inner img {
+                  position: absolute;
+                  inset: 0;
+                  width: 100%;
+                  height: 100%;
+                  object-fit: cover;
+                }
+
+                .article-overlay {
+                  position: absolute;
+                  inset: 0;
+                  background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.4) 50%, rgba(0, 0, 0, 0.2) 100%);
+                }
+
+                .article-content {
+                  position: relative;
+                  width: 100%;
+                  height: 100%;
+                  padding: 1.5rem;
+                  display: flex;
+                  flex-direction: column;
+                  justify-content: space-between;
+                }
+
+                .article-source {
+                  font-size: 0.75rem;
+                  text-transform: uppercase;
+                  letter-spacing: 0.05em;
+                  margin-bottom: 1rem;
+                  color: rgba(255, 255, 255, 0.9);
+                }
+
+                .article-title {
+                  font-size: 1.125rem;
+                  font-weight: 500;
+                  margin-bottom: 0.75rem;
+                  color: #ffffff;
+                }
+
+                .article-link {
+                  display: flex;
+                  align-items: center;
+                  gap: 0.5rem;
+                  font-size: 0.875rem;
+                  color: #ffffff;
+                  transition: transform 0.3s;
+                }
+
+                .article-card:hover .article-link {
+                  transform: translateX(4px);
+                }
+
+
+               /* CTA Button */
+               .cta-container {
+                 display: flex;
+                 justify-content: center;
+               }
+
+               .btn-primary {
+                 display: inline-flex;
+                 align-items: center;
+                 gap: 0.5rem;
+                 padding: 0.75rem 1.5rem;
+                 border-radius: 0.5rem;
+                 background: #030213;
+                 color: #ffffff;
+                 font-weight: 500;
+                 font-size: 1rem;
+                 text-decoration: none;
+                 transition: all 0.3s;
+               }
+
+               .btn-primary:hover {
+                 background: rgba(3, 2, 19, 0.9);
+                 transform: scale(1.05);
+               }
 
             /* Footer */
             footer {
@@ -350,7 +429,7 @@
         <!-- Navigation -->
         <nav>
             <div class="container">
-                <span class="logo">An-Tim Nguyen</span>
+                <span class="logo"><a href="index.html">An-Tim Nguyen</span>
                 <ul class="nav-links">
                     <li><a href="index.html">Home</a></li>
                     <li><a href="selected-works.html">Selected works</a></li>
@@ -628,51 +707,89 @@
                     the show before being worth nothing.
                 </p>
 
-                <!-- Reflection Images -->
-                <div class="reflection-images">
-                    <div class="reflection-card">
-                        <div class="reflection-card-inner white">
-                            <div>Document preview</div>
-                        </div>
-                    </div>
-                    <div class="reflection-card">
-                        <div class="reflection-card-inner dark">
-                            <div>Design document</div>
-                        </div>
-                    </div>
-                    <div class="reflection-card">
-                        <div class="reflection-card-inner white">
-                            <div>Research notes</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="reflection-credits">
-                    Interview notes and Slide Placement · Initial pitch deck
-                    Outcomes · Interview with Impact
-                </div>
 
-                <!-- CTA Button -->
-                <div class="cta-container">
-                    <a href="#" class="btn-primary">
-                        View case study
-                        <svg
-                            width="16"
-                            height="16"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                        >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
-                                d="M9 5l7 7-7 7"
-                            />
-                        </svg>
-                    </a>
-                </div>
-            </section>
-        </main>
+                <!-- Press & Media Section -->
+                    <section id="about">
+                      <h2>Press & Media</h2>
+                      <p style="color: rgba(3, 2, 19, 0.7); line-height: 1.6; margin-bottom: 2rem;">
+                        Pieces Chess Club has been featured in major publications, highlighting its unique approach to bringing together
+                        community, culture, and chess in cities across Europe.
+                      </p>
+
+                      <!-- Article Cards -->
+                            <div class="article-grid">
+                              <!-- Vogue Article -->
+                              <a href="https://www.vogue.co.uk/article/chess-trend" target="_blank" rel="noopener noreferrer" class="article-card">
+                                <div class="article-card-inner">
+                                  <img src="assets/vogue.png" alt="Chess players">
+                                  <div class="article-overlay"></div>
+                                  <div class="article-content">
+                                    <div>
+                                      <div class="article-source">Vogue UK</div>
+                                      <h3 class="article-title">Checkmate! How The Chess Club Became The New Nightclub</h3>
+                                    </div>
+                                    <div class="article-link">
+                                      Read article
+                                      <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                      </svg>
+                                    </div>
+                                  </div>
+                                </div>
+                              </a>
+
+                              <!-- Huck Magazine Article -->
+                              <a href="https://www.huckmag.com/article/ravers-swapping-dancefloors-chess-boards-pieces-knight-sober-clubbing" target="_blank" rel="noopener noreferrer" class="article-card">
+                                <div class="article-card-inner">
+                                  <img src="https://cdn.craft.cloud/26ed9c78-feb7-4ee6-8ddf-262fd7bafb2d/assets/tco/images/bb65ad66-3287-49c8-a401-aa0ee5c9d1e4.jpeg?fit=crop&format=webp&width=1024" alt="Pieces Chess Club">
+                                  <div class="article-overlay"></div>
+                                  <div class="article-content">
+                                    <div>
+                                      <div class="article-source">Huck Magazine</div>
+                                      <h3 class="article-title">Ravers Swapping Dancefloors for Chess Boards</h3>
+                                    </div>
+                                    <div class="article-link">
+                                      Read article
+                                      <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                      </svg>
+                                    </div>
+                                  </div>
+                                </div>
+                              </a>
+
+                              <!-- Dazed Digital Article -->
+                              <a href="https://www.dazeddigital.com/life-culture/article/69194/1/pieces-chess-club-checkers-lisbon-first-birthday-party-gen-z-hobby" target="_blank" rel="noopener noreferrer" class="article-card">
+                                <div class="article-card-inner">
+                                  <img src="https://images-prod.dazeddigital.com/1280/azure/dazed-prod/1430/2/1432236.jpg" alt="Pieces Chess Club birthday">
+                                  <div class="article-overlay"></div>
+                                  <div class="article-content">
+                                    <div>
+                                      <div class="article-source">Dazed Digital</div>
+                                      <h3 class="article-title">Pieces Chess Club's First Birthday Party</h3>
+                                    </div>
+                                    <div class="article-link">
+                                      Read article
+                                      <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                      </svg>
+                                    </div>
+                                  </div>
+                                </div>
+                              </a>
+                            </div>
+
+                      <!-- CTA Button -->
+                      <div class="cta-container">
+                        <a href="https://instagram.com/pieceschessclub" target="_blank" rel="noopener noreferrer" class="btn-primary">
+                          Follow on Instagram
+                          <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                          </svg>
+                        </a>
+                      </div>
+                    </section>
+                  </main>
 
         <!-- Footer -->
         <footer>
