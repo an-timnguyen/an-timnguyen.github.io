@@ -1,1 +1,583 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Pieces Chess Club - Case Study</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
 
+            body {
+                font-family:
+                    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+                    "Helvetica Neue", Arial, sans-serif;
+                line-height: 1.6;
+                color: #030213;
+                background: #ffffff;
+                overflow-x: hidden;
+                min-height: 100vh;
+            }
+
+            html {
+                scroll-behavior: smooth;
+            }
+
+            /* Navigation */
+            nav {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                background: rgba(255, 255, 255, 0.95);
+                backdrop-filter: blur(12px);
+                z-index: 1000;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            }
+
+            nav .container {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 1rem 1.5rem;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            nav .logo {
+                font-weight: 500;
+                font-size: 1rem;
+            }
+
+            nav .nav-links {
+                display: flex;
+                gap: 2rem;
+                list-style: none;
+            }
+
+            nav a {
+                color: #030213;
+                text-decoration: none;
+                font-size: 0.875rem;
+                transition: color 0.3s;
+            }
+
+            nav a:hover {
+                color: rgba(3, 2, 19, 0.6);
+            }
+
+            /* Main Content */
+            main {
+                padding-top: 8rem;
+                padding-left: 1.5rem;
+                padding-right: 1.5rem;
+                padding-bottom: 5rem;
+            }
+
+            section {
+                max-width: 1200px;
+                margin: 0 auto 5rem;
+            }
+
+            /* Hero Section */
+            .hero h1 {
+                font-size: 2rem;
+                font-weight: 500;
+                line-height: 1.5;
+                margin-bottom: 1.5rem;
+            }
+
+            .hero .intro {
+                max-width: 48rem;
+                font-size: 1.125rem;
+                color: rgba(3, 2, 19, 0.8);
+                line-height: 1.6;
+                margin-bottom: 3rem;
+            }
+
+            /* Image Grid */
+            .image-grid {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                margin-bottom: 1rem;
+            }
+
+            .image-wrapper {
+                position: relative;
+                aspect-ratio: 0/2;
+                border-radius: 0.5rem;
+                overflow: hidden;
+                box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            }
+
+            .image-wrapper img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+            .image-credits {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 1.5rem;
+                font-size: 0.875rem;
+                color: #717182;
+            }
+
+            /* Card Sections */
+            .card-section {
+                padding: 3rem;
+                border-radius: 1rem;
+                margin-bottom: 2rem;
+            }
+
+            .card-section.beige {
+                background: #f5f5f0;
+            }
+
+            .card-section.white {
+                background: #ffffff;
+            }
+
+            .card-section.light-gray {
+                background: rgba(233, 235, 239, 0.3);
+            }
+
+            .card-section h2 {
+                font-size: 1.875rem;
+                font-weight: 500;
+                margin-bottom: 1.5rem;
+            }
+
+            .card-section h3 {
+                font-size: 1.5rem;
+                font-weight: 500;
+                margin-bottom: 0.75rem;
+            }
+
+            .card-section p {
+                color: rgba(3, 2, 19, 0.7);
+                line-height: 1.6;
+                margin-bottom: 1rem;
+            }
+
+            .subsection {
+                margin-bottom: 2rem;
+            }
+
+            /* Role Images */
+            .promo-card {
+                position: relative;
+                aspect-ratio: 16/9;
+                border-radius: 0.75rem;
+                overflow: hidden;
+                box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+                background: #f0f0f0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .promo-content {
+                text-align: center;
+                padding: 2rem;
+            }
+
+            .chess-icon {
+                width: 8rem;
+                height: 8rem;
+                margin: 0 auto 1rem;
+                background: #030213;
+                border-radius: 0.5rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #ffffff;
+                font-size: 2.5rem;
+            }
+
+            .promo-content h4 {
+                font-size: 1.5rem;
+                font-weight: 500;
+                margin-bottom: 0.5rem;
+            }
+
+            .promo-content p {
+                font-size: 0.875rem;
+            }
+
+            /* Impact List */
+            .impact-list {
+                list-style: none;
+            }
+
+            .impact-list li {
+                display: flex;
+                align-items: start;
+                color: rgba(3, 2, 19, 0.7);
+                line-height: 1.6;
+                margin-bottom: 0.75rem;
+            }
+
+            .impact-list li span:first-child {
+                margin-right: 0.75rem;
+            }
+
+            /* Reflections */
+            .reflection-images {
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+                gap: 1.5rem;
+                margin-bottom: 1rem;
+            }
+
+            .reflection-card {
+                aspect-ratio: 3/4;
+                border-radius: 0.75rem;
+                overflow: hidden;
+                box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            }
+
+            .reflection-card-inner {
+                width: 100%;
+                height: 100%;
+                padding: 1rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .reflection-card-inner.white {
+                background: #ffffff;
+            }
+
+            .reflection-card-inner.dark {
+                background: #030213;
+                color: #ffffff;
+            }
+
+            .reflection-card-inner div {
+                font-size: 0.75rem;
+                text-align: center;
+                color: #717182;
+            }
+
+            .reflection-card-inner.dark div {
+                color: #ffffff;
+            }
+
+            .reflection-credits {
+                text-align: center;
+                font-size: 0.875rem;
+                color: #717182;
+                margin-bottom: 3rem;
+            }
+
+            /* Press & Media Cards */
+            .article-grid {
+                  display: grid;
+                  grid-template-columns: 1fr 1fr 1fr;
+                  gap: 1.5rem;
+                  margin-bottom: 3rem;
+                }
+
+                .article-card {
+                  text-decoration: none;
+                  display: block;
+                  transition: transform 0.3s;
+                }
+
+                .article-card:hover {
+                  transform: translateY(-4px);
+                }
+
+                .article-card-inner {
+                  position: relative;
+                  aspect-ratio: 2/2;
+                  border-radius: 0.75rem;
+                  overflow: hidden;
+                  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+                }
+
+                .article-card-inner img {
+                  position: absolute;
+                  inset: 0;
+                  width: 100%;
+                  height: 100%;
+                  object-fit: cover;
+                }
+
+                .article-overlay {
+                  position: absolute;
+                  inset: 0;
+                  background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.4) 50%, rgba(0, 0, 0, 0.2) 100%);
+                }
+
+                .article-content {
+                  position: relative;
+                  width: 100%;
+                  height: 100%;
+                  padding: 1.5rem;
+                  display: flex;
+                  flex-direction: column;
+                  justify-content: space-between;
+                }
+
+                .article-source {
+                  font-size: 0.75rem;
+                  text-transform: uppercase;
+                  letter-spacing: 0.05em;
+                  margin-bottom: 1rem;
+                  color: rgba(255, 255, 255, 0.9);
+                }
+
+                .article-title {
+                  font-size: 1.125rem;
+                  font-weight: 500;
+                  margin-bottom: 0.75rem;
+                  color: #ffffff;
+                }
+
+                .article-link {
+                  display: flex;
+                  align-items: center;
+                  gap: 0.5rem;
+                  font-size: 0.875rem;
+                  color: #ffffff;
+                  transition: transform 0.3s;
+                }
+
+                .article-card:hover .article-link {
+                  transform: translateX(4px);
+                }
+
+
+               /* CTA Button */
+               .cta-container {
+                 display: flex;
+                 justify-content: center;
+               }
+
+               .btn-primary {
+                 display: inline-flex;
+                 align-items: center;
+                 gap: 0.5rem;
+                 padding: 0.75rem 1.5rem;
+                 border-radius: 0.5rem;
+                 background: #030213;
+                 color: #ffffff;
+                 font-weight: 500;
+                 font-size: 1rem;
+                 text-decoration: none;
+                 transition: all 0.3s;
+               }
+
+               .btn-primary:hover {
+                 background: rgba(3, 2, 19, 0.9);
+                 transform: scale(1.05);
+               }
+
+            /* Footer */
+            footer {
+                padding: 2rem 1.5rem;
+                border-top: 1px solid rgba(0, 0, 0, 0.1);
+                text-align: center;
+                color: #717182;
+                font-size: 0.875rem;
+            }
+
+            /* Responsive */
+            @media (max-width: 768px) {
+                nav .nav-links {
+                    gap: 1rem;
+                    font-size: 0.75rem;
+                }
+
+                main {
+                    padding-top: 6rem;
+                    padding-bottom: 3rem;
+                }
+
+                .hero h1 {
+                    font-size: 1.5rem;
+                }
+
+                .hero .intro {
+                    font-size: 1rem;
+                }
+
+                .image-grid,
+                .image-credits {
+                    grid-template-columns: 1fr;
+                }
+
+                .card-section {
+                    padding: 2rem;
+                }
+
+                .reflection-images {
+                    grid-template-columns: 1fr;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Navigation -->
+        <nav>
+            <div class="container">
+                <span class="logo"><a href="index.html">An-Tim Nguyen</span>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="selected-works.html">Selected works</a></li>
+                    <li><a href="index.html#about">About</a></li>
+                </ul>
+            </div>
+        </nav>
+        <!-- Main Content -->
+        <main>
+            <!-- Hero Section -->
+            <section id="home" class="hero">
+                <h1>Libry Content - Biblioteksentralen</h1>
+                <p class="intro">
+                    Biblioteksentralen is Norway's national library organisation. I designed their unified digital platform, Bibliotekenes Formidlingsløsning, enabling public libraries to present collections, services, and events through an integrated website CMS, patron-facing app, and staff tool.
+                </p>
+
+                <!-- Image Grid -->
+                <div class="image-grid">
+                    <div class="image-wrapper">
+                        <img
+                            src="assets/libry-content-1.jpg"
+                            alt="Girl with chess board"
+                        />
+                    </div>
+                </div>
+            </section>
+
+            <!-- The Challenge Section -->
+            <section id="work" class="card-section white">
+                <h2>The Challenge</h2>
+                <p>
+                    Norwegian public libraries are very different from one another. A small rural branch with one staff member and mostly elderly visitors has little in common with a large city library running daily events for a diverse community. Yet both needed to use the same platform, with the same tools, to the same quality.
+                </p>
+                <p>
+                    On top of that, the people using the libraries are equally varied, including people with disabilities, low digital confidence, and different language backgrounds. Accessibility couldn't be an afterthought; it had to be central to every design decision.
+                </p>
+                <p>
+                    The task was to design something flexible enough for very different libraries, simple enough for non-technical staff, and inclusive enough for all kinds of patrons while still being consistent enough to eventually work as a national solution. Those goals don't always point in the same direction, and navigating that was the real challenge.
+                </p>
+
+                <!-- Challenge Images -->
+                <div class="image-grid" style="margin-top: 2rem">
+                    <div class="image-wrapper">
+                        <img
+                            src="assets/libry-content-2.jpg"
+                            alt="Giant chess set outdoors"
+                        />
+                    </div>
+                </div>
+            </section>
+
+            <!-- My Role and Contributions Section -->
+            <section class="card-section white">
+                <h2>My Role and Contributions</h2>
+                <p>
+                    I was the only designer on the project, handling everything from research to final delivery.
+                    To stay close to the real problem, I created two recurring research practices that ran throughout the entire project.
+                </p>
+                <p>The first was Library of the Week. Regular visits and interviews with librarians across different municipalities. This wasn't a one-time discovery exercise. It was an ongoing habit that kept the design grounded in what librarians and patrons actually experienced, week to week.</p>
+                <p>The second was a User Panel (Brukerpanel).  Bi-monthly workshops with librarians where we collectively explored, discussed, and pressure-tested new features and functions for the CMS. This gave librarians a direct voice in shaping the product over time, and gave me a structured way to validate ideas before committing to them in design and development.</p>
+                <p>
+                    I also ran user testing with a wide range of participants, including people with physical and cognitive disabilities, making sure the platform worked for everyone and not just the average user. These sessions directly shaped how the platform was structured and how content was presented across both the staff and patron-facing sides.
+                </p>
+                <p>
+                    To complement the qualitative work, I used analytics tools such as Google Analytics and Plausible to track how patrons actually used the platform in practice. This helped me spot patterns and drop-off points that interviews alone wouldn't reveal, and gave the team a more complete picture of what was and wasn't working after release.
+                </p>
+                <p>
+                    Beyond the design work itself, I was the link between research findings and product decisions and making the case for user needs in conversations with developers and stakeholders.
+                </p>
+
+
+            <!-- Impact Section -->
+            <section class="card-section light-gray">
+                <h2>Impact</h2>
+                <p>
+                    35 public libraries across Norway are now using the platform, with more joining continuously. The quality of the solution led directly to a national tender, with Bibliotekenes in position to become the standard digital platform for public libraries across the entire country.
+                </p>
+                <p>Beyond the platform itself, some of the research methods I introduced during the project have since become standard practice within the organisation. The Library of the Week interviews and the Brukerpanel workshops are now embedded into how Biblioteksentralen continuously develops and improves the product, meaning the research culture built during the project outlasted the project itself. That, to me, is as significant as the product outcomes. It means the organisation is now better equipped to keep the platform connected to real user needs as it scales, which matters enormously when the ambition is to serve every public library in Norway.
+</p>
+            </section>
+
+            <!-- Challenge Images -->
+            <div class="image-grid" style="margin-top: 2rem">
+                <div class="image-wrapper">
+                    <img
+                        src="assets/libry-content-3.jpg"
+                        alt="Giant chess set outdoors"
+                    />
+                </div>
+            </div>
+        </section>
+            <!-- Reflections Section -->
+            <section id="about">
+                <h2>Reflections</h2>
+                <p
+                    style="
+                        color: rgba(3, 2, 19, 0.7);
+                        line-height: 1.6;
+                        margin-bottom: 1rem;
+                    "
+                >
+                    This project meant a lot to me personally. I believe libraries are one of the most important public institutions we have, and arguably more relevant today than ever. In a world of misinformation, social media echo chambers, and AI-generated content, the public library is one of the last spaces that exists purely in the public interest. Free to access, professionally curated, and with no agenda beyond serving the community. Librarians, in that context, are not an outdated profession. They are trusted guides in a complicated information landscape.
+
+                </p>
+                <p
+                    style="
+                        color: rgba(3, 2, 19, 0.7);
+                        line-height: 1.6;
+                        margin-bottom: 1rem;
+                    "
+                >
+                    That belief made me want to get this right. Not just professionally, but because the work had real stakes. A platform that works means a librarian in a small town can better reach the people who need them. One that doesn't means that connection is weaker.
+                </p>
+                <p
+                    style="
+                        color: rgba(3, 2, 19, 0.7);
+                        line-height: 1.6;
+                        margin-bottom: 1rem;
+                    "
+                >
+                    The Library of the Week practice kept me honest throughout. Going back regularly to the people doing the actual work stopped me from designing based on assumptions and kept the project connected to reality.
+                </p>
+                <p
+                    style="
+                        color: rgba(3, 2, 19, 0.7);
+                        line-height: 1.6;
+                        margin-bottom: 1rem;
+                    "
+                >
+                    It also taught me a lot about working independently under pressure. When research pointed in a direction that was inconvenient for the roadmap, I had to make the case clearly and stand by it. That kind of confidence in your own process and knowing why you made the decisions you did, is something I developed here and carry into every project since.
+                </p>
+
+
+                      <!-- CTA Button -->
+                      <div class="cta-container">
+                        <a href="https://instagram.com/pieceschessclub" target="_blank" rel="noopener noreferrer" class="btn-primary">
+                          Follow on Instagram
+                          <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                          </svg>
+                        </a>
+                      </div>
+                    </section>
+                  </main>
+
+        <!-- Footer -->
+        <footer>
+            <p>© 2026 Pieces Chess Club. All rights reserved.</p>
+        </footer>
+    </body>
+</html>
