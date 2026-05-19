@@ -1,1 +1,799 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Pieces Chess Club - Case Study</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
 
+            body {
+                font-family:
+                    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+                    "Helvetica Neue", Arial, sans-serif;
+                line-height: 1.6;
+                color: #030213;
+                background: #ffffff;
+                overflow-x: hidden;
+                min-height: 100vh;
+            }
+
+            html {
+                scroll-behavior: smooth;
+            }
+
+            /* Navigation */
+            nav {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                background: rgba(255, 255, 255, 0.95);
+                backdrop-filter: blur(12px);
+                z-index: 1000;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            }
+
+            nav .container {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 1rem 1.5rem;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            nav .logo {
+                font-weight: 500;
+                font-size: 1rem;
+            }
+
+            nav .nav-links {
+                display: flex;
+                gap: 2rem;
+                list-style: none;
+            }
+
+            nav a {
+                color: #030213;
+                text-decoration: none;
+                font-size: 0.875rem;
+                transition: color 0.3s;
+            }
+
+            nav a:hover {
+                color: rgba(3, 2, 19, 0.6);
+            }
+
+            /* Main Content */
+            main {
+                padding-top: 8rem;
+                padding-left: 1.5rem;
+                padding-right: 1.5rem;
+                padding-bottom: 5rem;
+            }
+
+            section {
+                max-width: 1200px;
+                margin: 0 auto 5rem;
+            }
+
+            /* Hero Section */
+            .hero h1 {
+                font-size: 2rem;
+                font-weight: 500;
+                line-height: 1.5;
+                margin-bottom: 1.5rem;
+            }
+
+            .hero .intro {
+                max-width: 48rem;
+                font-size: 1.125rem;
+                color: rgba(3, 2, 19, 0.8);
+                line-height: 1.6;
+                margin-bottom: 3rem;
+            }
+
+            /* Image Grid */
+            .image-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 1.5rem;
+                margin-bottom: 1rem;
+            }
+
+            .image-wrapper {
+                position: relative;
+                aspect-ratio: 0/2;
+                border-radius: 0.5rem;
+                overflow: hidden;
+                box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            }
+
+            .image-wrapper img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+            .image-credits {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 1.5rem;
+                font-size: 0.875rem;
+                color: #717182;
+            }
+
+            /* Card Sections */
+            .card-section {
+                padding: 3rem;
+                border-radius: 1rem;
+                margin-bottom: 2rem;
+            }
+
+            .card-section.beige {
+                background: #f5f5f0;
+            }
+
+            .card-section.white {
+                background: #ffffff;
+            }
+
+            .card-section.light-gray {
+                background: rgba(233, 235, 239, 0.3);
+            }
+
+            .card-section h2 {
+                font-size: 1.875rem;
+                font-weight: 500;
+                margin-bottom: 1.5rem;
+            }
+
+            .card-section h3 {
+                font-size: 1.5rem;
+                font-weight: 500;
+                margin-bottom: 0.75rem;
+            }
+
+            .card-section p {
+                color: rgba(3, 2, 19, 0.7);
+                line-height: 1.6;
+                margin-bottom: 1rem;
+            }
+
+            .subsection {
+                margin-bottom: 2rem;
+            }
+
+            /* Role Images */
+            .promo-card {
+                position: relative;
+                aspect-ratio: 16/9;
+                border-radius: 0.75rem;
+                overflow: hidden;
+                box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+                background: #f0f0f0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .promo-content {
+                text-align: center;
+                padding: 2rem;
+            }
+
+            .chess-icon {
+                width: 8rem;
+                height: 8rem;
+                margin: 0 auto 1rem;
+                background: #030213;
+                border-radius: 0.5rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #ffffff;
+                font-size: 2.5rem;
+            }
+
+            .promo-content h4 {
+                font-size: 1.5rem;
+                font-weight: 500;
+                margin-bottom: 0.5rem;
+            }
+
+            .promo-content p {
+                font-size: 0.875rem;
+            }
+
+            /* Impact List */
+            .impact-list {
+                list-style: none;
+            }
+
+            .impact-list li {
+                display: flex;
+                align-items: start;
+                color: rgba(3, 2, 19, 0.7);
+                line-height: 1.6;
+                margin-bottom: 0.75rem;
+            }
+
+            .impact-list li span:first-child {
+                margin-right: 0.75rem;
+            }
+
+            /* Reflections */
+            .reflection-images {
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+                gap: 1.5rem;
+                margin-bottom: 1rem;
+            }
+
+            .reflection-card {
+                aspect-ratio: 3/4;
+                border-radius: 0.75rem;
+                overflow: hidden;
+                box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            }
+
+            .reflection-card-inner {
+                width: 100%;
+                height: 100%;
+                padding: 1rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .reflection-card-inner.white {
+                background: #ffffff;
+            }
+
+            .reflection-card-inner.dark {
+                background: #030213;
+                color: #ffffff;
+            }
+
+            .reflection-card-inner div {
+                font-size: 0.75rem;
+                text-align: center;
+                color: #717182;
+            }
+
+            .reflection-card-inner.dark div {
+                color: #ffffff;
+            }
+
+            .reflection-credits {
+                text-align: center;
+                font-size: 0.875rem;
+                color: #717182;
+                margin-bottom: 3rem;
+            }
+
+            /* Press & Media Cards */
+            .article-grid {
+                  display: grid;
+                  grid-template-columns: 1fr 1fr 1fr;
+                  gap: 1.5rem;
+                  margin-bottom: 3rem;
+                }
+
+                .article-card {
+                  text-decoration: none;
+                  display: block;
+                  transition: transform 0.3s;
+                }
+
+                .article-card:hover {
+                  transform: translateY(-4px);
+                }
+
+                .article-card-inner {
+                  position: relative;
+                  aspect-ratio: 2/2;
+                  border-radius: 0.75rem;
+                  overflow: hidden;
+                  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+                }
+
+                .article-card-inner img {
+                  position: absolute;
+                  inset: 0;
+                  width: 100%;
+                  height: 100%;
+                  object-fit: cover;
+                }
+
+                .article-overlay {
+                  position: absolute;
+                  inset: 0;
+                  background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.4) 50%, rgba(0, 0, 0, 0.2) 100%);
+                }
+
+                .article-content {
+                  position: relative;
+                  width: 100%;
+                  height: 100%;
+                  padding: 1.5rem;
+                  display: flex;
+                  flex-direction: column;
+                  justify-content: space-between;
+                }
+
+                .article-source {
+                  font-size: 0.75rem;
+                  text-transform: uppercase;
+                  letter-spacing: 0.05em;
+                  margin-bottom: 1rem;
+                  color: rgba(255, 255, 255, 0.9);
+                }
+
+                .article-title {
+                  font-size: 1.125rem;
+                  font-weight: 500;
+                  margin-bottom: 0.75rem;
+                  color: #ffffff;
+                }
+
+                .article-link {
+                  display: flex;
+                  align-items: center;
+                  gap: 0.5rem;
+                  font-size: 0.875rem;
+                  color: #ffffff;
+                  transition: transform 0.3s;
+                }
+
+                .article-card:hover .article-link {
+                  transform: translateX(4px);
+                }
+
+
+               /* CTA Button */
+               .cta-container {
+                 display: flex;
+                 justify-content: center;
+               }
+
+               .btn-primary {
+                 display: inline-flex;
+                 align-items: center;
+                 gap: 0.5rem;
+                 padding: 0.75rem 1.5rem;
+                 border-radius: 0.5rem;
+                 background: #030213;
+                 color: #ffffff;
+                 font-weight: 500;
+                 font-size: 1rem;
+                 text-decoration: none;
+                 transition: all 0.3s;
+               }
+
+               .btn-primary:hover {
+                 background: rgba(3, 2, 19, 0.9);
+                 transform: scale(1.05);
+               }
+
+            /* Footer */
+            footer {
+                padding: 2rem 1.5rem;
+                border-top: 1px solid rgba(0, 0, 0, 0.1);
+                text-align: center;
+                color: #717182;
+                font-size: 0.875rem;
+            }
+
+            /* Responsive */
+            @media (max-width: 768px) {
+                nav .nav-links {
+                    gap: 1rem;
+                    font-size: 0.75rem;
+                }
+
+                main {
+                    padding-top: 6rem;
+                    padding-bottom: 3rem;
+                }
+
+                .hero h1 {
+                    font-size: 1.5rem;
+                }
+
+                .hero .intro {
+                    font-size: 1rem;
+                }
+
+                .image-grid,
+                .image-credits {
+                    grid-template-columns: 1fr;
+                }
+
+                .card-section {
+                    padding: 2rem;
+                }
+
+                .reflection-images {
+                    grid-template-columns: 1fr;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Navigation -->
+        <nav>
+            <div class="container">
+                <span class="logo"><a href="index.html">An-Tim Nguyen</span>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="selected-works.html">Selected works</a></li>
+                    <li><a href="index.html#about">About</a></li>
+                </ul>
+            </div>
+        </nav>
+        <!-- Main Content -->
+        <main>
+            <!-- Hero Section -->
+            <section id="home" class="hero">
+                <h1>Pieces Chess Club</h1>
+                <p class="intro">
+                    Pieces Chess Club is a Lisbon-founded social chess club and
+                    fundraiser that brings together chess, food, and live DJ
+                    sets in one open-to-all night out built to welcome everyone
+                    traditional chess spaces tend to exclude.
+                </p>
+
+                <!-- Image Grid -->
+                <div class="image-grid">
+                    <div class="image-wrapper">
+                        <img
+                            src="assets/Pic1.png"
+                            alt="Girl with chess board"
+                        />
+                    </div>
+                    <div class="image-wrapper">
+                        <img
+                            src="assets/Pic2.png"
+                            alt="People playing board games outdoors"
+                        />
+                    </div>
+                </div>
+                <div class="image-credits">
+                    <p>Pieces Chess Club Lisbon - Photo by @noshwork</p>
+                    <p>Pieces Chess Club Lisbon - Photo by @noshwork</p>
+                </div>
+            </section>
+
+            <!-- The Challenge Section -->
+            <section id="work" class="card-section white">
+                <h2>The Challenge</h2>
+                <p>
+                    Chess has a participation problem. Traditional chess clubs
+                    are dominated by a narrow demographic, competitive, mostly
+                    male, often intimidating for newcomers. Meanwhile, a
+                    generation of people who had grown up with The Queen's
+                    Gambit and online chess were hungry to play, but had nowhere
+                    that felt like them.
+                </p>
+                <p>
+                    At the same time, nightlife was shrinking. Club closures
+                    across Europe were eroding the social spaces where
+                    communities naturally formed. People wanted connection,
+                    culture, and something to do with their hands and just not
+                    necessarily in a dark room at 2am. The question was: could
+                    chess be redesigned as a social experience? One that felt
+                    like a night out, not a tournament? That was genuinely
+                    welcoming to women, people of colour, LGBTQ+ communities,
+                    and anyone who'd ever felt locked out of a "serious" game?
+                </p>
+
+                <!-- Challenge Images -->
+                <div class="image-grid" style="margin-top: 2rem">
+                    <div class="image-wrapper">
+                        <img
+                            src="assets/pic3.png"
+                            alt="Giant chess set outdoors"
+                        />
+                    </div>
+                    <div class="image-wrapper">
+                        <img
+                            src="assets/pic4.png"
+                            alt="Chess pieces close-up"
+                        />
+                    </div>
+                </div>
+                <div class="image-credits">
+                    <p>Merch shoot, Lisbon. Design by An-Tim Nguyen</p>
+                    <p>Pieces Chess Club, Berlin - pics by An-Tim Nguyen</p>
+                </div>
+            </section>
+
+            <!-- My Role and Contributions Section -->
+            <section class="card-section white">
+                <h2>My Role and Contributions</h2>
+                <p>
+                    I co-founded Pieces Chess Club with Charles Yaw in Lisbon in
+                    2024, taking full ownership of the brand identity, visual
+                    design, and community strategy from day one.
+                </p>
+
+                <div class="subsection">
+                    <h3>Brand & visual identity</h3>
+                    <p>
+                        I built the visual language of Pieces from scratch:
+                        logo, art direction, posters, flyers, and social media
+                        assets. The Instagram presence drew on chess through the
+                        lens of pop culture, music, and memes, becoming as much
+                        a cultural archive as a promotional tool and growing the
+                        community to nearly 10,000 followers. This extended into
+                        merch production, designing physical products that
+                        carried the brand identity off-screen and into the
+                        community.
+                    </p>
+                </div>
+
+                <div class="subsection">
+                    <h3>Event design</h3>
+                    <p>
+                        I directed the experience design of every event:
+                        sourcing the right locations, the spatial layout, the
+                        atmosphere, the music and food curation philosophy. The
+                        deliberate choice to pair chess with food, DJ sets,
+                        prioritizing DJs and food from underrepresented
+                        communities wasn't just aesthetic. It was a signal about
+                        who the space was for.
+                    </p>
+                </div>
+
+                <div class="subsection">
+                    <h3>Community & growth</h3>
+                    <p>
+                        What started as a monthly night in Lisbon scaled to six
+                        European cities: London, Berlin, Vienna, Amsterdam, and
+                        Oslo. Average attendance in Lisbon reached 600 people
+                        per event. The project raised over €28,000 for charity,
+                        with Pieces operating on a voluntary donation model
+                        rather than ticket fees keeping it as accessible as
+                        possible.
+                    </p>
+                </div>
+
+                <div class="subsection">
+                    <h3>Press & culture</h3>
+                    <p>
+                        The concept resonated far beyond chess. Pieces was
+                        featured in Vogue UK, Huck, and Dazed, framing the club
+                        as part of a broader cultural shift in how young people
+                        socialise. The real design challenge here wasn't
+                        graphic, it was behavioural. How do you get someone who
+                        thinks chess is boring, or intimidating, to sit down
+                        across from a stranger and play? The answer turned out
+                        to be atmosphere, music, and the deliberate removal of
+                        everything that made traditional chess feel exclusive.
+                    </p>
+                </div>
+
+                <!-- Role Images -->
+                <div class="image-grid" style="margin-top: 3rem">
+                    <div class="image-wrapper">
+                        <img
+                            src="assets/tiredposter.png"
+                            alt="Chess board setup"
+                        />
+                    </div>
+                    <div class="image-wrapper">
+                        <img
+                            src="assets/streetpromo.jpg"
+                            alt="Chess board setup"
+                        />
+                    </div>
+                </div>
+                <div class="image-credits">
+                    <p>
+                        Promotional poster. Design by Tijl Schneier and An-Tim
+                        Nguyen
+                    </p>
+                    <p>Street promo London. Design by An-Tim Nguyen</p>
+                </div>
+            </section>
+
+            <!-- Impact Section -->
+            <section class="card-section light-gray">
+                <h2>Impact</h2>
+                <ul class="impact-list">
+                    <li>
+                        <span>•</span>
+                        <span
+                            >Scaled from Lisbon to six European cities: London,
+                            Berlin, Vienna, Amsterdam, and Oslo
+                        </span>
+                    </li>
+                    <li>
+                        <span>•</span>
+                        <span
+                            >Average attendance of
+                            <strong>600 people</strong> per event in Lisbon
+                        </span>
+                    </li>
+                    <li>
+                        <span>•</span>
+                        <span
+                            >Nearly <strong>10,000 Instagram followers</strong>
+                        </span>
+                    </li>
+                    <li>
+                        <span>•</span>
+                        <span
+                            >Over <strong> €28,000</strong> raised for charity,
+                            including Medical Aid for Palestinians and Norwegian
+                            Refugee Council
+                        </span>
+                    </li>
+                    <li>
+                        <span>•</span>
+                        <span
+                            >Activations at Waking Life Festival, Portugal and
+                            Southbank Centre, London
+                        </span>
+                    </li>
+                    <li>
+                        <span>•</span>
+                        <span
+                            >Featured in
+                            <strong
+                                ><a
+                                    href="https://www.vogue.co.uk/article/chess-trend"
+                                    >Vogue UK</a
+                                ></strong
+                            >,
+                            <strong
+                                ><a
+                                    href="https://www.huckmag.com/article/ravers-swapping-dancefloors-chess-boards-pieces-knight-sober-clubbing"
+                                    >Huck</a
+                                ></strong
+                            >, and
+                            <strong
+                                ><a
+                                    href="https://www.dazeddigital.com/life-culture/article/69194/1/pieces-chess-club-checkers-lisbon-first-birthday-party-gen-z-hobby"
+                                    >Dazed</a
+                                ></strong
+                            >
+                        </span>
+                    </li>
+                    <li>
+                        <span>•</span>
+                        <span
+                            >Established a residency on Refuge Worldwide radio
+                            in Berlin
+                        </span>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Reflections Section -->
+            <section id="about">
+                <h2>Reflections</h2>
+                <p
+                    style="
+                        color: rgba(3, 2, 19, 0.7);
+                        line-height: 1.6;
+                        margin-bottom: 1rem;
+                    "
+                >
+                    Pieces let me see design things that used emotional points
+                    freely. The spirit of Pieces was so special I was interested
+                    that the project was focused on having to do around the
+                    pieces that you're now given all of "Is it a good party,
+                    Ashton, and is good?"
+                </p>
+                <p
+                    style="
+                        color: rgba(3, 2, 19, 0.7);
+                        line-height: 1.6;
+                        margin-bottom: 2rem;
+                    "
+                >
+                    That's both the answer and the question surrounding that a
+                    whole brought together: In groups like work/movements and
+                    competition we are interested that good design actually has
+                    a lot to sit about and the energy. In a bigger light you can
+                    guide some within that Pieces taught me that the might in
+                    the show before being worth nothing.
+                </p>
+
+
+                <!-- Press & Media Section -->
+                    <section id="about">
+                      <h2>Press & Media</h2>
+                      <p style="color: rgba(3, 2, 19, 0.7); line-height: 1.6; margin-bottom: 2rem;">
+                        Pieces Chess Club has been featured in major publications, highlighting its unique approach to bringing together
+                        community, culture, and chess in cities across Europe.
+                      </p>
+
+                      <!-- Article Cards -->
+                            <div class="article-grid">
+                              <!-- Vogue Article -->
+                              <a href="https://www.vogue.co.uk/article/chess-trend" target="_blank" rel="noopener noreferrer" class="article-card">
+                                <div class="article-card-inner">
+                                  <img src="assets/vogue.png" alt="Chess players">
+                                  <div class="article-overlay"></div>
+                                  <div class="article-content">
+                                    <div>
+                                      <div class="article-source">Vogue UK</div>
+                                      <h3 class="article-title">Checkmate! How The Chess Club Became The New Nightclub</h3>
+                                    </div>
+                                    <div class="article-link">
+                                      Read article
+                                      <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                      </svg>
+                                    </div>
+                                  </div>
+                                </div>
+                              </a>
+
+                              <!-- Huck Magazine Article -->
+                              <a href="https://www.huckmag.com/article/ravers-swapping-dancefloors-chess-boards-pieces-knight-sober-clubbing" target="_blank" rel="noopener noreferrer" class="article-card">
+                                <div class="article-card-inner">
+                                  <img src="https://cdn.craft.cloud/26ed9c78-feb7-4ee6-8ddf-262fd7bafb2d/assets/tco/images/bb65ad66-3287-49c8-a401-aa0ee5c9d1e4.jpeg?fit=crop&format=webp&width=1024" alt="Pieces Chess Club">
+                                  <div class="article-overlay"></div>
+                                  <div class="article-content">
+                                    <div>
+                                      <div class="article-source">Huck Magazine</div>
+                                      <h3 class="article-title">Ravers Swapping Dancefloors for Chess Boards</h3>
+                                    </div>
+                                    <div class="article-link">
+                                      Read article
+                                      <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                      </svg>
+                                    </div>
+                                  </div>
+                                </div>
+                              </a>
+
+                              <!-- Dazed Digital Article -->
+                              <a href="https://www.dazeddigital.com/life-culture/article/69194/1/pieces-chess-club-checkers-lisbon-first-birthday-party-gen-z-hobby" target="_blank" rel="noopener noreferrer" class="article-card">
+                                <div class="article-card-inner">
+                                  <img src="https://images-prod.dazeddigital.com/1280/azure/dazed-prod/1430/2/1432236.jpg" alt="Pieces Chess Club birthday">
+                                  <div class="article-overlay"></div>
+                                  <div class="article-content">
+                                    <div>
+                                      <div class="article-source">Dazed Digital</div>
+                                      <h3 class="article-title">Pieces Chess Club's First Birthday Party</h3>
+                                    </div>
+                                    <div class="article-link">
+                                      Read article
+                                      <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                      </svg>
+                                    </div>
+                                  </div>
+                                </div>
+                              </a>
+                            </div>
+
+                      <!-- CTA Button -->
+                      <div class="cta-container">
+                        <a href="https://instagram.com/pieceschessclub" target="_blank" rel="noopener noreferrer" class="btn-primary">
+                          Follow on Instagram
+                          <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                          </svg>
+                        </a>
+                      </div>
+                    </section>
+                  </main>
+
+        <!-- Footer -->
+        <footer>
+            <p>© 2026 Pieces Chess Club. All rights reserved.</p>
+        </footer>
+    </body>
+</html>
